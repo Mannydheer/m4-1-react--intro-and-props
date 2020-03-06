@@ -45,10 +45,13 @@ function RecommendedArtist(props) {
 
 We can use it like this:
 
+//gets packaged as object with keyvalue pairs. 
+
 ```jsx
 <RecommendedArtist
   imageUrl="skrillex.jpg"
   artistName="Skrillex"
+  //when passing a num, needs to be squigglies. 
   numOfSongs={9}
 />
 <RecommendedArtist
@@ -89,15 +92,15 @@ const UserProfile = ({ username, email, bio }) => {
 Make the components reusable by using props.
 
 ```jsx
-function VideoPlayer(props) {
+function VideoPlayer({videoUrl, width, height, description}) {
   return (
     <div>
       <video
-        src="http://youtube.com/some-video"
-        width={480}
-        height={300}
+        src={videoUrl}
+        width={width}
+        height={height}
       />
-      <p>Cat playing the piano!!</p>
+      <p>{description}</p>
     </div>
   );
 }
@@ -106,17 +109,40 @@ function VideoPlayer(props) {
 ---
 
 ```jsx
+//this is username:username  as object
+function Tweet({src, username, handle, date, desc, Reply, Retweet, Like, Share}) {
+  return (
+    <div>
+      <Avatar src ={src} />
+      <div>
+        <p>
+          <span className="user-name">{username}</span>
+          <span className="handle">{handle}</span>
+          <span className="date">{date}</span>
+        </p>
+        <p>{desc}</p>
+        <div>
+          <button>Reply</button>
+          <button>Retweet</button>
+          <button>Like</button>
+          <button>Share</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+// other way
 function Tweet(props) {
   return (
     <div>
-      <Avatar src="/images/bunny.jpg" />
+      <Avatar src ={props.src} />
       <div>
         <p>
-          <span className="user-name">Mr. Bunny</span>
-          <span className="handle">@mr-bunny</span>
-          <span className="date">Oct 29th</span>
+          <span className="user-name">{props.username}</span>
+          <span className="handle">{props.handle}</span>
+          <span className="date">{props.date}</span>
         </p>
-        <p>Alfalfa is the best food don't @ me</p>
+        <p>{props.desc}</p>
         <div>
           <button>Reply</button>
           <button>Retweet</button>
@@ -135,10 +161,10 @@ function Tweet(props) {
 function Header(props) {
   return (
     <header>
-      <h1>My great website</h1>
+      <h1>{props.title}</h1>
 
       <nav>
-        <a href="/about">About</a>
+        <a href={props.nav.first.url}>{props.nav.first.label}>About</a>
         <a href="/contact">Contact</a>
       </nav>
     </header>
@@ -230,6 +256,8 @@ function App(props) {
 
 Use `map` in the following snippets.
 
+
+
 ---
 
 ```jsx
@@ -240,24 +268,24 @@ const pets = [
 <div>
   <h1 className="title">My pets:</h1>
   <ul>
-    <PetInfo
-      name={pets[0].name}
-      age={pets[0].age}
-      species={pets[0].species}
-      breed={pets[0].breed}
+{pets.map(pet => (
+
+  <PetInfo
+      name={pet.name}
+      age={pet.age}
+      species={pet.species}
+      breed={pet.breed}
     />
-    <PetInfo
-      name={pets[1].name}
-      age={pets[1].age}
-      species={pets[1].species}
-      breed={pets[1].breed}
-    />
+
+    //could also.
+
+    // <PetInfo pet={pet}/> and deconstruct where its called
+))}
+
   </ul>
 </div>;
 ```
-
 ---
-
 ```jsx
 const forecasts = [4, -3, 1, 9, 4, 2, -6];
 
@@ -273,7 +301,6 @@ const forecasts = [4, -3, 1, 9, 4, 2, -6];
   <Day>-6 degrees</Day>
 </div>;
 ```
-
 ---
 
 ```jsx
@@ -285,9 +312,20 @@ const pizzaToppings = [
 ]
 
 <Pizza>
-  <Topping name="green pepper" />
-  <Topping name="broccoli" />
+{pizzaToppings
+.filter(topping => topping.isVegetarian)
+.map(topping => <Topping name={topping.name} />)
+}
+  // <Topping name="green pepper" />
+  // <Topping name="broccoli" />
 </Pizza>
+
+
+))}
+// <Pizza>
+//   <Topping name="green pepper" />
+//   <Topping name="broccoli" />
+// </Pizza>
 ```
 
 Hint: You'll need `filter` as well as `map`

@@ -400,8 +400,8 @@ The next message in our list is this one:
 ```
 
 This time, `message.user` does _not_ equal `props.currentUser`, and so the `messageType` gets sent to `received`; Because Elaine didn't write the message, she must have received it.
-
 ---
+
 
 Next, we need to update our `ChatMessage` component to do something with this new `messageType` prop.
 

@@ -141,6 +141,9 @@ A _slot_ in which we can write JavaScript expressions.
 let index = 0;
 
 <div id={'item-' + index} />;
+<div id={`'item-'${index}}` />;
+
+
 ```
 
 ---
@@ -159,7 +162,9 @@ render(
 ---
 
 ```jsx
+//Not just adding the class name. There is condition, if isOnline is true, then green. 
 <li className={isOnline && 'green'}>{user.username}</li>
+
 
 // ⚠️ New notation! another way to use of &&.
 ```
@@ -178,6 +183,24 @@ let age = 10;
   <img src={birthdayCakeImage} />
   <p>Happy {age}th birthday!</p>
 </div>;
+
+//my work
+<div> class='wrapper'>
+  <img src="/images/cake.jpg">
+  <p> Happy<span id='age'> </span>th birthday! </p>
+</div>
+
+<script>
+let currentAge = 10;
+let age = document.getElementbyId('age')
+age.innerHTML = `${currentAge};
+</script>
+
+
+//solution:
+
+
+
 ```
 
 ---
@@ -196,6 +219,31 @@ let agreeToTerms = false;
     <div>YOUR SOUL BELONGS TO ME MWAHAHAHAHAAAAAAHHHHHH!!!1</div>
   )}
 </div>;
+////
+
+let agreeToTerms = false;
+
+<div>
+  <label For="terms-of-service">
+    <input type="checkbox" id="terms-of-service" /> I agree to the terms
+  </label>
+
+ 
+    <div id='soul'>< div>
+  
+</div>;
+
+
+<script>
+let agreeToTerms = false;
+
+if(agreeToTerms) {
+  let tag = document.getElementbyId('soul);
+  tag.innerHTML = 'YOUR SOUL BELONGS TO ME MWAHAHAAAAAHHHHHH!!!'
+}
+</script>
+
+
 ```
 
 ---
@@ -217,6 +265,54 @@ const pets = [
     breed: 'ragdoll',
   },
 ];
+
+<div>
+  <h1 class="title">My pets:</h1>
+  <ul>
+    <li>
+      <h3>'Bark Obama'</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Age</th>
+            <th>Species</th>
+            <th>Breed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3</td>
+            <td>'dog'</td>
+            <td>'Labradoodle'</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+
+    <li>
+      <h3>'Chairman Meow'</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Age</th>
+            <th>Species</th>
+            <th>Breed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>8</td>
+            <td>'cat'</td>
+            <td>'ragdoll'</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+  </ul>
+</div>;
+```
+<!-- --------------------------------------- -->
+
 
 <div>
   <h1 className="title">My pets:</h1>
@@ -269,6 +365,7 @@ const pets = [
 # Rendering
 
 ```jsx
+//This will render everything. 
 ReactDOM.render(
   <div>Hello world</div>,
   document.querySelector('#root')
@@ -303,6 +400,8 @@ ReactDOM.render(
 ---
 
 # React Components
+//Reuasble. 
+//
 
 - "Custom supercharged HTML elements"
 - Allows us to avoid duplication (like in the pets example)
@@ -312,6 +411,9 @@ ReactDOM.render(
 Now it fits on the screen:
 
 ```jsx
+//Created a component called petInfo. Passing info from array.
+//camelcase
+//starts with capital letter. 
 <div>
   <h1 className="title">My pets:</h1>
   <ul>
